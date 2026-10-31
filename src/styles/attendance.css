@@ -1,0 +1,103 @@
+/* ==========================
+   ATTENDANCE CSS
+========================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#f4f7fc;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.attendance-container{
+  width:95%;
+  margin:30px auto;
+  background:#fff;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.attendance-container h2{
+  text-align:center;
+  margin-bottom:20px;
+  color:#2c3e50;
+}
+
+.attendance-form{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.attendance-form input,
+.attendance-form select{
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.attendance-form input:focus,
+.attendance-form select:focus{
+  outline:none;
+  border-color:#007bff;
+  box-shadow:0 0 8px rgba(0,123,255,.3);
+}
+
+.attendance-btn{
+  background:#007bff;
+  color:#fff;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.attendance-btn:hover{
+  background:#0056b3;
+}
+
+.table-responsive{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  background:#007bff;
+  color:#fff;
+}
+
+th,td{
+  padding:12px;
+  border:1px solid #ddd;
+  text-align:center;
+}
+
+tr:nth-child(even){
+  background:#f8f9fa;
+}
+
+tr:hover{
+  background:#eef5ff;
+}
+
+@media(max-width:768px){
+  .attendance-container{
+    padding:15px;
+  }
+
+  table{
+    font-size:14px;
+  }
+}

@@ -1,0 +1,103 @@
+/* ==========================
+   CLASS CSS
+========================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#f4f7fc;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.class-container{
+  width:95%;
+  margin:30px auto;
+  background:#fff;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+.class-container h2{
+  text-align:center;
+  margin-bottom:20px;
+  color:#2c3e50;
+}
+
+.class-form{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.class-form input,
+.class-form select{
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.class-form input:focus,
+.class-form select:focus{
+  outline:none;
+  border-color:#007bff;
+  box-shadow:0 0 8px rgba(0,123,255,.3);
+}
+
+.class-btn{
+  background:#6f42c1;
+  color:#fff;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.class-btn:hover{
+  background:#5a32a3;
+}
+
+.table-responsive{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  background:#6f42c1;
+  color:#fff;
+}
+
+th,td{
+  padding:12px;
+  border:1px solid #ddd;
+  text-align:center;
+}
+
+tr:nth-child(even){
+  background:#f8f9fa;
+}
+
+tr:hover{
+  background:#eef5ff;
+}
+
+@media(max-width:768px){
+  .class-container{
+    padding:15px;
+  }
+
+  table{
+    font-size:14px;
+  }
+}

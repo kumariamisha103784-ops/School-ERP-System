@@ -1,0 +1,46 @@
+.teacher-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.teacher-card{
+    width:500px;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.teacher-card h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.teacher-form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.teacher-form input{
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.teacher-form button{
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.teacher-form button:hover{
+    background:#1d4ed8;
+}

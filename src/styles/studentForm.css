@@ -1,0 +1,100 @@
+/* ==========================
+   STUDENT FORM CSS
+========================== */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background:#f4f7fc;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.student-form-container{
+  max-width:700px;
+  margin:40px auto;
+  background:#fff;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.student-form-container h2{
+  text-align:center;
+  margin-bottom:25px;
+  color:#2c3e50;
+}
+
+.student-form{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.student-form label{
+  font-weight:bold;
+  color:#444;
+}
+
+.student-form input,
+.student-form select,
+.student-form textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
+  transition:.3s;
+}
+
+.student-form input:focus,
+.student-form select:focus,
+.student-form textarea:focus{
+  outline:none;
+  border-color:#007bff;
+  box-shadow:0 0 8px rgba(0,123,255,.3);
+}
+
+.student-form textarea{
+  resize:none;
+  height:100px;
+}
+
+.student-form button{
+  background:#007bff;
+  color:#fff;
+  border:none;
+  padding:14px;
+  border-radius:8px;
+  font-size:17px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.student-form button:hover{
+  background:#0056b3;
+}
+
+.student-form .cancel-btn{
+  background:#dc3545;
+}
+
+.student-form .cancel-btn:hover{
+  background:#b52a37;
+}
+
+@media(max-width:768px){
+
+.student-form-container{
+    margin:20px;
+    padding:20px;
+}
+
+.student-form button{
+    font-size:15px;
+}
+
+}
