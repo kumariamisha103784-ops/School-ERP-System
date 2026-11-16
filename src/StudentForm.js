@@ -1,6 +1,6 @@
 import "./styles/studentForm.css";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "./api/api";
 import { useParams, useNavigate } from "react-router-dom";
 
 function StudentForm() {
@@ -25,17 +25,24 @@ function StudentForm() {
 
   const fetchStudent = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/students");
+      const res = await API.get("/students");
 
       const selectedStudent = res.data.data.find(
         (item) => item._id === id
       );
 
       if (selectedStudent) {
-        setStudent(selectedStudent);
+        setStudent({
+          name: selectedStudent.name || "",
+          rollNo: selectedStudent.rollNo || "",
+          class: selectedStudent.class || "",
+          section: selectedStudent.section || "",
+          mobile: selectedStudent.mobile || "",
+        });
       }
     } catch (error) {
       console.log(error);
+      alert("Unable to load student");
     }
   };
 
@@ -63,32 +70,24 @@ function StudentForm() {
       }
 
       if (id) {
-        await axios.put(
-          `http://localhost:5000/api/students/${id}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await API.put(`/students/${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         alert("Student Updated Successfully");
       } else {
-        await axios.post(
-          "http://localhost:5000/api/students",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await API.post("/students", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
         alert("Student Added Successfully");
       }
 
-      navigate("/studentlist");
+      navigate("/students");
     } catch (error) {
       console.log(error);
       alert("Something went wrong");
@@ -96,30 +95,18 @@ function StudentForm() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "500px",
-        margin: "40px auto",
-        padding: "25px",
-        background: "#fff",
-        borderRadius: "10px",
-        boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-      }}
-    >
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-        {id ? "Update Student" : "Add Student"}
-      </h2>
+    <div className="student-form-container">
+      <h2>{id ? "Update Student" : "Add Student"}</h2>
 
       <form onSubmit={handleSubmit}>
-
-        <input
+                <input
           type="text"
           name="name"
           placeholder="Student Name"
           value={student.name}
           onChange={handleChange}
           required
-          style={inputStyle}
+          className="form-input"
         />
 
         <input
@@ -129,7 +116,7 @@ function StudentForm() {
           value={student.rollNo}
           onChange={handleChange}
           required
-          style={inputStyle}
+          className="form-input"
         />
 
         <input
@@ -139,7 +126,7 @@ function StudentForm() {
           value={student.class}
           onChange={handleChange}
           required
-          style={inputStyle}
+          className="form-input"
         />
 
         <input
@@ -149,7 +136,7 @@ function StudentForm() {
           value={student.section}
           onChange={handleChange}
           required
-          style={inputStyle}
+          className="form-input"
         />
 
         <input
@@ -159,26 +146,31 @@ function StudentForm() {
           value={student.mobile}
           onChange={handleChange}
           required
-          style={inputStyle}
+          className="form-input"
         />
 
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setPhoto(e.target.files[0])}
-          style={{ marginBottom: "15px" }}
+          className="form-input"
         />
 
         {photo && (
-          <div style={{ marginBottom: "20px", textAlign: "center" }}>
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: "20px",
+            }}
+          >
             <img
               src={URL.createObjectURL(photo)}
               alt="Preview"
               style={{
                 width: "130px",
                 height: "130px",
-                borderRadius: "10px",
                 objectFit: "cover",
+                borderRadius: "10px",
                 border: "2px solid #2563eb",
               }}
             />
@@ -187,16 +179,7 @@ function StudentForm() {
 
         <button
           type="submit"
-          style={{
-            width: "100%",
-            padding: "12px",
-            background: "#2563eb",
-            color: "#fff",
-            border: "none",
-            borderRadius: "8px",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
+          className="submit-btn"
         >
           {id ? "Update Student" : "Add Student"}
         </button>
@@ -205,15 +188,5 @@ function StudentForm() {
     </div>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-  padding: "10px",
-  marginBottom: "15px",
-  borderRadius: "6px",
-  border: "1px solid #ccc",
-  fontSize: "15px",
-  boxSizing: "border-box",
-};
 
 export default StudentForm;

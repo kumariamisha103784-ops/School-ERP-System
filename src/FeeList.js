@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import API from "./api/api";
 import "./styles/fee.css";
 
 function FeeList() {
   const [fees, setFees] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const feesPerPage = 10;
 
   useEffect(() => {
     fetchFees();
@@ -11,78 +17,234 @@ function FeeList() {
 
   const fetchFees = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/fees");
-      setFees(res.data.data || []);
-    } catch (err) {
-      console.log(err);
+      const res = await API.get("/fees");
+
+      if (res.data.success) {
+        setFees(res.data.data || []);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error Loading Fee Records");
+    } finally {
+      setLoading(false);
     }
   };
 
   const deleteFee = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this fee record?")) {
-      return;
-    }
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this fee record?"
+    );
+
+    if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/fees/${id}`);
+      await API.delete(`/fees/${id}`);
+
       alert("Fee Deleted Successfully");
+
       fetchFees();
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
       alert("Error Deleting Fee");
     }
   };
 
+  const filteredFees = fees.filter((fee) => {
+    return (
+      (fee.student?.name || "")
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+
+      (fee.student?.class || "")
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+
+      (fee.feeType || "")
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+
+      (fee.status || "")
+        .toLowerCase()
+        .includes(search.toLowerCase())
+    );
+  });
+
+  const lastIndex = currentPage * feesPerPage;
+  const firstIndex = lastIndex - feesPerPage;
+
+  const currentFees = filteredFees.slice(
+    firstIndex,
+    lastIndex
+  );
+
+  const totalPages = Math.ceil(
+    filteredFees.length / feesPerPage
+  );
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
-    <div className="fee-container">
-      <h2>Fee List</h2>
+    <div className="fee-page">
 
-      <div className="table-responsive">
-        <table>
-          <thead>
-            <tr>
-              <th>Student Name</th>
-              <th>Class</th>
-              <th>Amount</th>
-              <th>Payment Date</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+      <div className="fee-header">
 
-          <tbody>
-            {fees.length > 0 ? (
-              fees.map((fee) => (
-                <tr key={fee._id}>
-                  <td>{fee.studentName}</td>
-                  <td>{fee.class}</td>
-                  <td>₹ {fee.amount}</td>
-                  <td>
-                    {fee.paymentDate
-                      ? new Date(fee.paymentDate).toLocaleDateString()
-                      : "-"}
-                  </td>
-                  <td>{fee.status}</td>
-                  <td>
-                    <button
-                      className="fee-btn"
-                      onClick={() => deleteFee(fee._id)}
-                    >
-                      Delete
-                    </button>
+        <h2>Fee Management</h2>
+
+        <Link to="/feeform">
+          <button className="add-fee-btn">
+            + Add Fee
+          </button>
+        </Link>
+
+      </div>
+
+      <div className="search-container">
+
+        <input
+          type="text"
+          placeholder="Search by Student, Class, Fee Type or Status..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
+        />
+
+      </div>
+
+      {loading ? (
+        <h2 className="loading">
+          Loading Fee Records...
+        </h2>
+      ) : (
+        <div className="fee-table-container">
+
+          <table className="fee-table">
+
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Class</th>
+                <th>Fee Type</th>
+                <th>Amount</th>
+                <th>Payment Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+                            {currentFees.length > 0 ? (
+                currentFees.map((fee) => (
+                  <tr key={fee._id}>
+                    <td>
+                      {fee.student?.name || "-"}
+                    </td>
+
+                    <td>
+                      {fee.student?.class || "-"}
+                    </td>
+
+                    <td>{fee.feeType}</td>
+
+                    <td>₹ {fee.amount}</td>
+
+                    <td>
+                      {fee.paymentDate
+                        ? new Date(
+                            fee.paymentDate
+                          ).toLocaleDateString()
+                        : "-"}
+                    </td>
+
+                    <td>
+                      <span
+                        className={`status-badge ${(
+                          fee.status || ""
+                        ).toLowerCase()}`}
+                      >
+                        {fee.status}
+                      </span>
+                    </td>
+
+                    <td>
+                      <div className="action-buttons">
+
+                        <Link
+                          to={`/feeedit/${fee._id}`}
+                        >
+                          <button className="edit-btn">
+                            Edit
+                          </button>
+                        </Link>
+
+                        <button
+                          className="delete-btn"
+                          onClick={() =>
+                            deleteFee(fee._id)
+                          }
+                        >
+                          Delete
+                        </button>
+
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="7"
+                    className="no-data"
+                  >
+                    No Fee Records Found
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6">No Fee Records Found</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+              )}
+            </tbody>
+
+          </table>
+
+        </div>
+      )}
+
+      {!loading && totalPages > 1 && (
+        <div className="pagination">
+
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+
+          <button
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+
+        </div>
+      )}
+
     </div>
   );
 }
 
 export default FeeList;
+          

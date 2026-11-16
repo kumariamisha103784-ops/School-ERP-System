@@ -1,0 +1,217 @@
+/* ===========================
+   Students Page
+=========================== */
+
+.students-page{
+    margin-left:260px;
+    padding:30px;
+    min-height:100vh;
+    background:#f4f7fc;
+}
+
+.students-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.students-header h2{
+    color:#1e3a8a;
+    font-size:28px;
+    font-weight:700;
+}
+
+.add-student-btn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.add-student-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* ===========================
+   Search Box
+=========================== */
+
+.search-container{
+    margin-bottom:20px;
+}
+
+.search-container input{
+    width:100%;
+    max-width:400px;
+    padding:12px 15px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+.search-container input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.students-table-container{
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.students-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.students-table thead{
+    background:#2563eb;
+    color:#fff;
+}
+
+.students-table th{
+    padding:16px;
+    text-align:left;
+    font-size:15px;
+    font-weight:600;
+}
+
+.students-table td{
+    padding:16px;
+    border-bottom:1px solid #eef2f7;
+    font-size:15px;
+    color:#374151;
+}
+
+.students-table tbody tr{
+    transition:.3s;
+}
+
+.students-table tbody tr:hover{
+    background:#f8fbff;
+}
+
+/* ===========================
+   Photo
+=========================== */
+
+.student-photo{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #2563eb;
+}
+
+/* ===========================
+   Action Buttons
+=========================== */
+
+.action-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.edit-btn,
+.delete-btn,
+.view-btn{
+
+    border:none;
+    color:#fff;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:14px;
+}
+
+.view-btn{
+    background:#0ea5e9;
+}
+
+.view-btn:hover{
+    background:#0284c7;
+}
+
+.edit-btn{
+    background:#22c55e;
+}
+
+.edit-btn:hover{
+    background:#16a34a;
+}
+
+.delete-btn{
+    background:#ef4444;
+}
+
+.delete-btn:hover{
+    background:#dc2626;
+}
+
+/* ===========================
+   Empty Data
+=========================== */
+
+.no-data{
+    text-align:center;
+    padding:40px;
+    color:#6b7280;
+    font-size:17px;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:992px){
+
+    .students-page{
+        margin-left:80px;
+        padding:20px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .students-page{
+        margin-left:0;
+        padding:15px;
+    }
+
+    .students-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .students-header h2{
+        font-size:22px;
+    }
+
+    .students-table-container{
+        overflow-x:auto;
+    }
+
+    .students-table{
+        min-width:900px;
+    }
+
+}

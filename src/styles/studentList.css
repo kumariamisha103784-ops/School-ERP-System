@@ -1,211 +1,155 @@
-.student-page{
-    padding:30px;
-    background:#f4f7fb;
-    min-height:100vh;
+/* =========================
+   Student List
+========================= */
+
+.students-table-container{
+    width:100%;
+    overflow-x:auto;
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    margin-top:20px;
 }
 
-.student-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
+.students-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
 }
 
-.student-header h2{
-    color:#1e293b;
-    font-size:30px;
-}
-
-.add-btn{
+.students-table thead{
     background:#2563eb;
+}
+
+.students-table thead th{
     color:#fff;
-    border:none;
-    padding:12px 20px;
-    border-radius:10px;
-    cursor:pointer;
+    padding:15px;
+    text-align:left;
     font-size:15px;
     font-weight:600;
 }
 
-.add-btn:hover{
-    background:#1d4ed8;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:#fff;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-
-table th{
-    background:#2563eb;
-    color:white;
+.students-table tbody td{
     padding:15px;
-}
-
-table td{
-    padding:15px;
-    text-align:center;
     border-bottom:1px solid #e5e7eb;
+    color:#374151;
+    font-size:15px;
 }
 
-table tr:hover{
+.students-table tbody tr{
+    transition:.3s;
+}
+
+.students-table tbody tr:hover{
     background:#f8fafc;
 }
 
-table button{
-    padding:8px 14px;
-    margin:0 5px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
+/* Student Photo */
+
+.student-photo{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #2563eb;
 }
 
-table button:first-child{
-    background:#f59e0b;
-    color:white;
-}
+/* Action Buttons */
 
-table button:last-child{
-    background:#ef4444;
-    color:white;
-}
-
-/* ==========================
-   STUDENT LIST CSS
-========================== */
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  background:#f4f7fc;
-  font-family:Arial, Helvetica, sans-serif;
-}
-
-.student-list-container{
-  width:95%;
-  margin:30px auto;
-  background:#fff;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 10px 30px rgba(0,0,0,.1);
-}
-
-.student-list-container h2{
-  text-align:center;
-  margin-bottom:20px;
-  color:#2c3e50;
-}
-
-.search-box{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  margin-bottom:20px;
-  font-size:16px;
-}
-
-.search-box:focus{
-  outline:none;
-  border-color:#007bff;
-  box-shadow:0 0 8px rgba(0,123,255,.3);
-}
-
-.table-responsive{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-table thead{
-  background:#007bff;
-  color:#fff;
-}
-
-table th,
-table td{
-  padding:12px;
-  border:1px solid #ddd;
-  text-align:center;
-}
-
-table tbody tr:nth-child(even){
-  background:#f9f9f9;
-}
-
-table tbody tr:hover{
-  background:#eef5ff;
-}
-
-.edit-btn,
-.delete-btn{
-  padding:8px 14px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  color:#fff;
-  margin:2px;
+.action-buttons{
+    display:flex;
+    gap:8px;
 }
 
 .edit-btn{
-  background:#28a745;
+    background:#22c55e;
+    color:#fff;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    transition:.3s;
 }
 
 .edit-btn:hover{
-  background:#218838;
+    background:#16a34a;
 }
 
 .delete-btn{
-  background:#dc3545;
+    background:#ef4444;
+    color:#fff;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    transition:.3s;
 }
 
 .delete-btn:hover{
-  background:#c82333;
+    background:#dc2626;
 }
 
+/* Empty Data */
+
+.no-data{
+    text-align:center;
+    padding:30px;
+    color:#6b7280;
+    font-size:18px;
+    font-weight:500;
+}
+
+/* Pagination */
+
 .pagination{
-  display:flex;
-  justify-content:center;
-  margin-top:20px;
-  gap:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:25px;
 }
 
 .pagination button{
-  padding:8px 15px;
-  border:none;
-  border-radius:6px;
-  background:#007bff;
-  color:#fff;
-  cursor:pointer;
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.3s;
 }
 
-.pagination button:hover{
-  background:#0056b3;
+.pagination button:hover:not(:disabled){
+    background:#1d4ed8;
 }
+
+.pagination button:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.pagination span{
+    font-weight:600;
+    color:#374151;
+}
+
+/* Responsive */
 
 @media(max-width:768px){
 
-table{
-  font-size:14px;
-}
+    .students-table{
+        min-width:850px;
+    }
 
-.student-list-container{
-  padding:15px;
-}
+    .action-buttons{
+        flex-direction:column;
+    }
 
-.search-box{
-  font-size:14px;
-}
-
+    .edit-btn,
+    .delete-btn{
+        width:100%;
+    }
 }

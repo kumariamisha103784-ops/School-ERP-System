@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "./api/api";
 import { useNavigate, useParams } from "react-router-dom";
 import "./styles/teacherForm.css";
 
@@ -25,9 +25,7 @@ function TeacherForm() {
 
   const fetchTeacher = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:5000/api/teachers/${id}`
-      );
+  const res = await API.get(`/teachers/${id}`);
 
       setTeacher({
         name: res.data.data.name,
@@ -53,22 +51,36 @@ function TeacherForm() {
     setPhoto(e.target.files[0]);
   };
 
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
+    const formData = new FormData();
+
+    formData.append("name", teacher.name);
+    formData.append("subject", teacher.subject);
+    formData.append("qualification", teacher.qualification);
+    formData.append("mobile", teacher.mobile);
+    formData.append("email", teacher.email);
+
+    if (photo) {
+      formData.append("photo", photo);
+    }
+
     if (id) {
-      await axios.put(
-        `http://localhost:5000/api/teachers/${id}`,
-        teacher
-      );
+      await API.put(`/teachers/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       alert("Teacher Updated Successfully");
     } else {
-      await axios.post(
-        "http://localhost:5000/api/teachers",
-        teacher
-      );
+      await API.post("/teachers", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       alert("Teacher Added Successfully");
     }
@@ -76,7 +88,11 @@ function TeacherForm() {
     navigate("/teachers");
   } catch (err) {
     console.log(err.response?.data || err);
-    alert("Something Went Wrong");
+
+    alert(
+      err.response?.data?.message ||
+      err.message
+    );
   }
 };
 
@@ -131,12 +147,11 @@ function TeacherForm() {
           required
         />
 
-        {/* <input
-          type="file"
-          name="photo"
-          accept="image/*"
-          onChange={handlePhoto}
-        /> */}
+        <input
+           type="file"
+           accept="image/*"
+           onChange={handlePhoto}
+        />
 
         <button type="submit">
           {id ? "Update Teacher" : "Add Teacher"}

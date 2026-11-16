@@ -1,0 +1,267 @@
+/* ==========================================
+   PREMIUM NAVBAR
+========================================== */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:75px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 25px;
+
+    background:#ffffff;
+
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+/* ==========================
+   LEFT
+========================== */
+
+.navbar-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.navbar-left h2{
+    font-size:24px;
+    color:#1e293b;
+    font-weight:700;
+}
+
+.navbar-left p{
+    font-size:13px;
+    color:#64748b;
+    margin-top:3px;
+}
+
+/* ==========================
+   RIGHT
+========================== */
+
+.navbar-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+/* ==========================
+   MENU BUTTON
+========================== */
+
+.menu-btn{
+    width:44px;
+    height:44px;
+
+    border:none;
+    outline:none;
+
+    border-radius:12px;
+
+    background:#2563eb;
+    color:#fff;
+
+    font-size:18px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.menu-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* ==========================
+   DARK MODE BUTTON
+========================== */
+
+.theme-btn{
+    width:44px;
+    height:44px;
+
+    border:none;
+    outline:none;
+
+    border-radius:50%;
+
+    background:#f1f5f9;
+
+    color:#1e293b;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
+}
+
+.theme-btn:hover{
+    background:#2563eb;
+    color:#fff;
+    transform:rotate(20deg);
+}
+
+/* ==========================
+   NAV ICONS
+========================== */
+
+.nav-icon{
+    position:relative;
+
+    width:44px;
+    height:44px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#f1f5f9;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    color:#334155;
+}
+
+.nav-icon:hover{
+    background:#2563eb;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+.badge{
+    position:absolute;
+    top:-4px;
+    right:-4px;
+
+    width:18px;
+    height:18px;
+
+    background:#ef4444;
+    color:#fff;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:10px;
+    font-weight:700;
+}
+
+/* ==========================
+   PROFILE
+========================== */
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:6px 10px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.profile:hover{
+    background:#f8fafc;
+}
+
+.profile-icon{
+    font-size:40px;
+    color:#2563eb;
+}
+
+.profile-details h4{
+    margin:0;
+    font-size:15px;
+    color:#1e293b;
+    font-weight:600;
+}
+
+.profile-details span{
+    display:block;
+    margin-top:2px;
+    font-size:12px;
+    color:#64748b;
+}
+
+.down-icon{
+    color:#64748b;
+    font-size:14px;
+}
+
+/* ==========================
+   DARK MODE
+========================== */
+
+body.dark-theme .navbar{
+    background:#111827;
+    color:#fff;
+}
+
+body.dark-theme .navbar-left h2,
+body.dark-theme .profile-details h4{
+    color:#fff;
+}
+
+body.dark-theme .navbar-left p,
+body.dark-theme .profile-details span,
+body.dark-theme .down-icon{
+    color:#cbd5e1;
+}
+
+body.dark-theme .nav-icon,
+body.dark-theme .theme-btn{
+    background:#1f2937;
+    color:#fff;
+}
+
+body.dark-theme .profile:hover{
+    background:#1f2937;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width:768px){
+
+    .navbar{
+        padding:0 15px;
+    }
+
+    .profile-details,
+    .down-icon{
+        display:none;
+    }
+
+    .navbar-right{
+        gap:10px;
+    }
+}

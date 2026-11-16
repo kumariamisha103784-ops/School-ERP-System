@@ -1,35 +1,60 @@
-import "./App.css";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Nav from "./Nav";
-import Home from "./Home";
 import AdminLogin from "./AdminLogin";
 import Dashboard from "./Dashboard";
+
 import Students from "./Students";
+import StudentForm from "./StudentForm";
+
 import Teachers from "./Teachers";
+import TeacherForm from "./TeacherForm";
+
 import Attendance from "./Attendance";
-import Fees from "./Fees";
+import AttendanceForm from "./AttendanceForm";
+
+import FeeList from "./FeeList";
+import FeeForm from "./FeeForm";
+
 import Classes from "./Classes";
+import ClassForm from "./ClassForm";
+
 import Notices from "./Notices";
+import NoticeForm from "./NoticeForm";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Nav />
+      <Routes>
+        <Route path="/" element={<AdminLogin />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/students" element={<Students />} />
-          <Route path="/teachers" element={<Teachers />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/fees" element={<Fees />} />
-          <Route path="/classes" element={<Classes />} />
-          <Route path="/notices" element={<Notices />} />
-        </Routes>
-      </div>
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/students" element={<Students />} />
+        <Route path="/studentform" element={<StudentForm />} />
+        <Route path="/studentedit/:id" element={<StudentForm />} />
+
+        <Route path="/teachers" element={<Teachers />} />
+        <Route path="/teacherform" element={<TeacherForm />} />
+        <Route path="/teacheredit/:id" element={<TeacherForm />} />
+
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/attendanceform" element={<AttendanceForm />} />
+        <Route path="/attendanceedit/:id" element={<AttendanceForm />} />
+
+        <Route path="/fees" element={<FeeList />} />
+        <Route path="/feeform" element={<FeeForm />} />
+        <Route path="/feeedit/:id" element={<FeeForm />} />
+
+        <Route path="/classes" element={<Classes />} />
+        <Route path="/classform" element={<ClassForm />} />
+        <Route path="/classedit/:id" element={<ClassForm />} />
+
+        <Route path="/notices" element={<Notices />} />
+        <Route path="/noticeform" element={<NoticeForm />} />
+        <Route path="/noticeedit/:id" element={<NoticeForm />} />
+      </Routes>
     </BrowserRouter>
   );
 }

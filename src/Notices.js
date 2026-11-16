@@ -1,67 +1,129 @@
-import React from "react";
-import "./App.css";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles/notice.css";
 
 function Notices() {
+  const navigate = useNavigate();
+
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadNotices();
+  }, []);
+
+  const loadNotices = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/notices");
+
+      setNotices(res.data.data || []);
+    } catch (error) {
+      console.log(error);
+      alert("Error Loading Notices");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteNotice = async (id) => {
+    if (!window.confirm("Delete this notice?")) return;
+
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/notices/${id}`
+      );
+
+      alert("Notice Deleted Successfully");
+
+      loadNotices();
+    } catch (error) {
+      console.log(error);
+      alert("Error Deleting Notice");
+    }
+  };
+
+  const editNotice = (id) => {
+    navigate(`/noticeedit/${id}`);
+  };
+
+  if (loading) {
+    return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
+  }
+
   return (
-    <div className="notices">
-      <h1>Notice Board / Announcements</h1>
+    <div className="notice-container">
 
-      <h3>School & Coaching Institute Notices</h3>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <h2>Notice Board</h2>
 
-      <form className="notice-form">
-        <input
-          type="text"
-          placeholder="Enter Notice Title"
-        />ho gaya
-        
+        <Link to="/noticeform">
+          <button className="notice-btn">
+            + Add Notice
+          </button>
+        </Link>
+      </div>
 
-        <textarea
-          rows="5"
-          placeholder="Enter Notice Description"
-        ></textarea>
-
-        <input
-          type="date"
-        />
-
-        <button type="submit">
-          Publish Notice
-        </button>
-      </form>
-
-      <br />
-
-      <table border="1" cellPadding="10">
+      <table border="1" cellPadding="10" width="100%">
         <thead>
           <tr>
-            <th>Notice Title</th>
+            <th>Title</th>
             <th>Description</th>
             <th>Date</th>
+            <th>Posted By</th>
             <th>Action</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr>
-            <td>Holiday Notice</td>
-            <td>School will remain closed on Sunday.</td>
-            <td>21-10-2026</td>
-            <td>
-              <button>Edit</button>
-              <button>Delete</button>
-            </td>
-          </tr>
+          {notices.length === 0 ? (
+            <tr>
+              <td colSpan="5" style={{ textAlign: "center" }}>
+                No Notices Found
+              </td>
+            </tr>
+          ) : (
+            notices.map((notice) => (
+              <tr key={notice._id}>
+                <td>{notice.title}</td>
+                <td>{notice.description}</td>
+                <td>
+                  {notice.noticeDate
+                    ? new Date(
+                        notice.noticeDate
+                      ).toLocaleDateString()
+                    : "-"}
+                </td>
 
-          <tr>
-            <td>Exam Schedule</td>
-            <td>Unit Test starts from 01 November 2026.</td>
-            <td>22-10-2026</td>
-            <td>
-              <button>Edit</button>
-              <button>Delete</button>
-            </td>
-          </tr>
+                <td>{notice.postedBy}</td>
+
+                <td>
+                                    <button
+                    className="notice-btn"
+                    onClick={() => editNotice(notice._id)}
+                    style={{ marginRight: "10px" }}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    className="notice-btn"
+                    onClick={() => deleteNotice(notice._id)}
+                  >
+                    Delete
+                  </button>
+
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
@@ -69,3 +131,4 @@ function Notices() {
 }
 
 export default Notices;
+

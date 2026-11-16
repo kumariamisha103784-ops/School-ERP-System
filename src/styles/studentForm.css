@@ -1,100 +1,211 @@
-/* ==========================
-   STUDENT FORM CSS
-========================== */
+/* ===========================
+   Student Form Page
+=========================== */
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.student-form-page{
+    margin-left:260px;
+    min-height:100vh;
+    padding:30px;
+    background:#f4f7fc;
 }
 
-body{
-  background:#f4f7fc;
-  font-family: Arial, Helvetica, sans-serif;
+.student-form-card{
+    max-width:900px;
+    margin:auto;
+    background:#ffffff;
+    border-radius:18px;
+    padding:35px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
 }
 
-.student-form-container{
-  max-width:700px;
-  margin:40px auto;
-  background:#fff;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+.student-form-card h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#1e3a8a;
+    font-size:30px;
+    font-weight:700;
 }
 
-.student-form-container h2{
-  text-align:center;
-  margin-bottom:25px;
-  color:#2c3e50;
-}
+/* ===========================
+   Form Grid
+=========================== */
 
 .student-form{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
 }
 
-.student-form label{
-  font-weight:bold;
-  color:#444;
+.form-group{
+    display:flex;
+    flex-direction:column;
 }
 
-.student-form input,
-.student-form select,
-.student-form textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
-  transition:.3s;
+.form-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#374151;
+    font-size:15px;
 }
 
-.student-form input:focus,
-.student-form select:focus,
-.student-form textarea:focus{
-  outline:none;
-  border-color:#007bff;
-  box-shadow:0 0 8px rgba(0,123,255,.3);
+.form-group input,
+.form-group select,
+.form-group textarea{
+    padding:12px 15px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+    background:#fff;
 }
 
-.student-form textarea{
-  resize:none;
-  height:100px;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
 }
 
-.student-form button{
-  background:#007bff;
-  color:#fff;
-  border:none;
-  padding:14px;
-  border-radius:8px;
-  font-size:17px;
-  cursor:pointer;
-  transition:.3s;
+.form-group textarea{
+    resize:vertical;
+    min-height:100px;
 }
 
-.student-form button:hover{
-  background:#0056b3;
+/* Full Width */
+
+.full-width{
+    grid-column:1 / -1;
 }
 
-.student-form .cancel-btn{
-  background:#dc3545;
+/* ===========================
+   File Upload
+=========================== */
+
+.form-group input[type="file"]{
+    padding:10px;
+    background:#f8fafc;
+    cursor:pointer;
 }
 
-.student-form .cancel-btn:hover{
-  background:#b52a37;
+.photo-preview{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+}
+
+.photo-preview img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #2563eb;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.form-buttons{
+    grid-column:1 / -1;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+.save-btn,
+.cancel-btn{
+    padding:12px 28px;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.save-btn{
+    background:#2563eb;
+    color:#fff;
+}
+
+.save-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+.cancel-btn{
+    background:#ef4444;
+    color:#fff;
+}
+
+.cancel-btn:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
+}
+
+.save-btn:disabled,
+.cancel-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* ===========================
+   Loading
+=========================== */
+
+.loading{
+    text-align:center;
+    font-size:18px;
+    color:#2563eb;
+    padding:40px 0;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:992px){
+
+    .student-form-page{
+        margin-left:80px;
+        padding:20px;
+    }
+
 }
 
 @media(max-width:768px){
 
-.student-form-container{
-    margin:20px;
-    padding:20px;
-}
+    .student-form-page{
+        margin-left:0;
+        padding:15px;
+    }
 
-.student-form button{
-    font-size:15px;
-}
+    .student-form-card{
+        padding:20px;
+    }
+
+    .student-form-card h2{
+        font-size:24px;
+    }
+
+    .student-form{
+        grid-template-columns:1fr;
+    }
+
+    .full-width{
+        grid-column:auto;
+    }
+
+    .form-buttons{
+        flex-direction:column;
+    }
+
+    .save-btn,
+    .cancel-btn{
+        width:100%;
+    }
 
 }

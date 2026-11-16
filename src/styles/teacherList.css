@@ -1,101 +1,184 @@
+/* ==========================================
+   Teacher List
+========================================== */
+
 .teacher-list-container{
-    padding:30px;
-    background:#f8fafc;
-    min-height:100vh;
-}
-
-.teacher-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-.teacher-header h2{
-    color:#1e293b;
-    font-size:30px;
-}
-
-.add-btn{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:16px;
-    transition:.3s;
-}
-
-.add-btn:hover{
-    background:#1d4ed8;
-    transform:translateY(-2px);
-}
-
-.search-box{
     width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    margin-bottom:20px;
-    font-size:16px;
+    background:#ffffff;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    overflow-x:auto;
 }
 
-.teacher-table{
+/* Table */
+
+.teacher-list-table{
     width:100%;
+    min-width:950px;
     border-collapse:collapse;
-    background:white;
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
 }
 
-.teacher-table th{
+.teacher-list-table thead{
     background:#2563eb;
-    color:white;
+}
+
+.teacher-list-table thead th{
+    color:#fff;
     padding:15px;
+    text-align:left;
+    font-size:15px;
+    font-weight:600;
 }
 
-.teacher-table td{
-    padding:12px;
-    text-align:center;
-    border-bottom:1px solid #eee;
+.teacher-list-table tbody td{
+    padding:15px;
+    border-bottom:1px solid #e5e7eb;
+    font-size:15px;
+    color:#374151;
 }
 
-.teacher-table tr:hover{
-    background:#f1f5f9;
+.teacher-list-table tbody tr{
+    transition:0.3s;
 }
+
+.teacher-list-table tbody tr:hover{
+    background:#f8fafc;
+}
+
+/* Teacher Image */
 
 .teacher-photo{
-    width:60px;
-    height:60px;
+    width:50px;
+    height:50px;
     border-radius:50%;
     object-fit:cover;
+    border:2px solid #2563eb;
+}
+
+/* Status */
+
+.status-active{
+    background:#dcfce7;
+    color:#15803d;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.status-inactive{
+    background:#fee2e2;
+    color:#dc2626;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+/* Action Buttons */
+
+.teacher-actions{
+    display:flex;
+    gap:8px;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn{
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    color:#fff;
+    cursor:pointer;
+    transition:.3s;
+    font-size:14px;
+}
+
+.view-btn{
+    background:#0ea5e9;
+}
+
+.view-btn:hover{
+    background:#0284c7;
 }
 
 .edit-btn{
-    background:#16a34a;
-    color:white;
-    border:none;
-    padding:8px 14px;
-    border-radius:6px;
-    cursor:pointer;
-    margin-right:5px;
+    background:#22c55e;
 }
 
 .edit-btn:hover{
-    background:#15803d;
+    background:#16a34a;
 }
 
 .delete-btn{
     background:#ef4444;
-    color:white;
-    border:none;
-    padding:8px 14px;
-    border-radius:6px;
-    cursor:pointer;
 }
 
 .delete-btn:hover{
     background:#dc2626;
+}
+
+/* No Data */
+
+.no-data{
+    text-align:center;
+    padding:30px;
+    color:#6b7280;
+    font-size:17px;
+    font-weight:500;
+}
+
+/* Pagination */
+
+.teacher-pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:25px;
+}
+
+.teacher-pagination button{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.teacher-pagination button:hover:not(:disabled){
+    background:#1d4ed8;
+}
+
+.teacher-pagination button:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.teacher-pagination span{
+    font-weight:600;
+    color:#374151;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .teacher-list-table{
+        min-width:900px;
+    }
+
+    .teacher-actions{
+        flex-direction:column;
+    }
+
+    .view-btn,
+    .edit-btn,
+    .delete-btn{
+        width:100%;
+    }
+
 }

@@ -1,73 +1,373 @@
-/* Reset */
+/* ======================================================
+   SCHOOL ERP - PREMIUM THEME
+   APP.CSS (PART 1)
+====================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+
+    --primary:#3b82f6;
+    --primary-dark:#2563eb;
+    --secondary:#06b6d4;
+
+    --bg:#070b18;
+    --bg2:#101827;
+    --card:#151d31;
+    --card2:#1b2438;
+
+    --white:#ffffff;
+    --text:#d7deef;
+    --text-light:#9ca3af;
+
+    --success:#22c55e;
+    --warning:#f59e0b;
+    --danger:#ef4444;
+
+    --border:rgba(255,255,255,.08);
+
+    --shadow:0 15px 35px rgba(0,0,0,.35);
+
+}
+
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* Body */
+html{
+    scroll-behavior:smooth;
+}
+
 body{
-  background:#f4f6f9;
+
+    font-family:"Poppins",sans-serif;
+
+    color:var(--text);
+
+    background:
+    radial-gradient(circle at top left,#10204a 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#0a5468 0%,transparent 25%),
+    #070b18;
+
+    min-height:100vh;
+
 }
 
-/* Main App */
-.App{
-  text-align:center;
-}
-
-/* Navbar */
-.navbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#0d6efd;
-  color:white;
-  padding:15px 40px;
-}
-
-/* Logo */
-.logo h2{
-  font-size:24px;
-}
-
-/* Navigation */
-.nav-links{
-  display:flex;
-  list-style:none;
-}
-
-.nav-links li{
-  margin-left:20px;
-}
-
-.nav-links a{
-  color:white;
-  text-decoration:none;
-  font-size:18px;
-  font-weight:bold;
-  transition:0.3s;
-}
-
-.nav-links a:hover{
-  color:yellow;
-}
-
-/* Page Content */
-h1{
-  margin-top:40px;
-  color:#0d6efd;
-}
-
-h3{
-  margin-top:20px;
+a{
+    text-decoration:none;
+    color:inherit;
 }
 
 ul{
-  margin-top:20px;
+    list-style:none;
 }
 
-ul li{
-  margin:10px;
-  font-size:18px;
+img{
+    max-width:100%;
+    display:block;
+}
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+    outline:none;
+
+    transition:.35s;
+
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:#fff;
+
+    border-radius:12px;
+
+    padding:14px 16px;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+input::placeholder,
+textarea::placeholder{
+
+    color:#94a3b8;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    outline:none;
+
+    border-color:#3b82f6;
+
+    box-shadow:0 0 0 4px rgba(59,130,246,.18);
+
+}
+
+button{
+
+    background:linear-gradient(135deg,#2563eb,#06b6d4);
+
+    color:#fff;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    letter-spacing:.3px;
+
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 30px rgba(37,99,235,.35);
+
+}
+
+.App{
+
+    min-height:100vh;
+
+}
+
+/* ===========================
+   COMMON PAGE
+=========================== */
+
+.page{
+
+    padding:30px;
+
+}
+
+.page-title{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    margin-bottom:8px;
+
+}
+
+.page-subtitle{
+
+    color:#94a3b8;
+
+    margin-bottom:30px;
+
+}
+
+/* ===========================
+   GLASS CARD
+=========================== */
+
+.card{
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    border-color:rgba(59,130,246,.35);
+
+}
+
+.card h2{
+
+    color:#fff;
+
+    margin-bottom:18px;
+
+    font-size:24px;
+
+}
+
+/* ======================================================
+   TABLE
+====================================================== */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:18px;
+    background:rgba(255,255,255,.04);
+}
+
+table thead{
+    background:linear-gradient(90deg,#2563eb,#06b6d4);
+}
+
+table th{
+    padding:18px;
+    color:#fff;
+    text-align:left;
+    font-size:15px;
+    font-weight:600;
+}
+
+table td{
+    padding:16px 18px;
+    color:#dbe4ff;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+table tbody tr{
+    transition:.3s;
+}
+
+table tbody tr:hover{
+    background:rgba(255,255,255,.05);
+}
+
+/* ======================================================
+   LOGIN
+====================================================== */
+
+.login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.login-card{
+    width:420px;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    padding:35px;
+    box-shadow:var(--shadow);
+}
+
+.login-card h2{
+    color:#fff;
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* ======================================================
+   PAGINATION
+====================================================== */
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:25px;
+}
+
+/* ======================================================
+   SCROLLBAR
+====================================================== */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#101827;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2563eb;
+    border-radius:30px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#3b82f6;
+}
+
+/* ======================================================
+   ANIMATION
+====================================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.fade-up{
+    animation:fadeUp .6s ease;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media(max-width:992px){
+
+    .page{
+        padding:20px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .page-title{
+        font-size:26px;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+    }
+
+    .login-card{
+        width:100%;
+    }
+
 }

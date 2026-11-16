@@ -1,64 +1,168 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./styles/login.css"; 
+import {
+  FaLock,
+  FaEnvelope,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
+import API from "./api/api";
+import "./styles/login.css";
 
 function AdminLogin() {
+
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+
     e.preventDefault();
 
-    if (username === "admin" && password === "1234") {
-      localStorage.setItem("isLoggedIn", "true");
-      alert("Login Successful");
-      navigate("/dashboard");
-    } else {
-      alert("Invalid Username or Password");
+    setLoading(true);
+
+    try {
+
+      const res = await API.post("/admin/login", {
+        email,
+        password,
+      });
+
+      if (res.data.success) {
+
+        localStorage.setItem("token", res.data.token);
+
+        if (remember) {
+          localStorage.setItem(
+            "admin",
+            JSON.stringify(res.data.admin)
+          );
+        }
+
+        alert("Login Successful");
+
+        navigate("/dashboard");
+      }
+
+    } catch (error) {
+
+      alert(
+        error.response?.data?.message ||
+        "Login Failed"
+      );
+
     }
+
+    setLoading(false);
+
   };
 
   return (
+
     <div className="login-container">
-      <div className="login-box">
-        <h1>Admin Login</h1>
-        <p>School / Coaching Institute ERP System</p>
+
+      <div className="bg-circle bg1"></div>
+      <div className="bg-circle bg2"></div>
+      <div className="bg-circle bg3"></div>
+
+      <div className="login-card">
+
+        <div className="lock-box">
+          <FaLock />
+        </div>
+
+        <h2>School ERP</h2>
+
+        <p>
+          Welcome Back Admin
+        </p>
 
         <form onSubmit={handleLogin}>
-          <label>Username</label>
-          <br />
 
-          <input
-            type="text"
-            placeholder="Enter Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
+          <div className="input-box">
 
-          <br />
-          <br />
+            <FaEnvelope className="input-icon" />
 
-          <label>Password</label>
-          <br />
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
+              required
+            />
 
-          <input
-            type="password"
-            placeholder="Enter Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          </div>
 
-          <br />
-          <br />
+          <div className="input-box">
 
-          <button className="login-btn" type="submit">
-            Login
+            <FaLock className="input-icon" />
+
+            <input
+              type={
+                showPassword
+                  ? "text"
+                  : "password"
+              }
+              placeholder="Password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
+              required
+            />
+
+            <span
+              className="eye-icon"
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
+            >
+
+              {showPassword
+                ? <FaEyeSlash/>
+                : <FaEye/>}
+
+            </span>
+
+          </div>
+                    <div className="login-options">
+
+            <label className="remember-me">
+
+              <input
+                type="checkbox"
+                checked={remember}
+                onChange={(e) =>
+                  setRemember(e.target.checked)
+                }
+              />
+
+              <span>Remember Me</span>
+
+            </label>
+
+            <span className="forgot-password">
+              Forgot Password?
+            </span>
+
+          </div>
+
+          <button
+            type="submit"
+            className="login-btn"
+            disabled={loading}
+          >
+            {loading ? "Signing In..." : "LOGIN"}
           </button>
+
         </form>
+
       </div>
+
     </div>
+
   );
 }
 

@@ -1,53 +1,143 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  FaTachometerAlt,
+  FaUserGraduate,
+  FaChalkboardTeacher,
+  FaClipboardCheck,
+  FaMoneyBillWave,
+  FaSchool,
+  FaBullhorn,
+  FaCog,
+  FaSignOutAlt,
+  FaGraduationCap,
+} from "react-icons/fa";
+
 import "../styles/sidebar.css";
 
-function Sidebar() {
-  return (
-    <div className="sidebar">
+function Sidebar({ sidebarOpen }) {
 
-      <div className="logo">
-        <h2>🎓 School ERP</h2>
-        <p>Admin Panel</p>
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLoggedIn");
+    navigate("/");
+  };
+
+  return (
+    <aside className={sidebarOpen ? "sidebar active" : "sidebar"}>
+
+      <div className="sidebar-top">
+
+        <div className="logo-box">
+
+          <FaGraduationCap className="logo-icon" />
+
+          <div>
+            <h2>School ERP</h2>
+            <p>Admin Panel</p>
+          </div>
+
+        </div>
+
       </div>
 
-      <ul>
+      <nav className="sidebar-menu">
 
-        <li>
-          <Link to="/dashboard">📊 Dashboard</Link>
-        </li>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
+          <FaTachometerAlt />
+          <span>Dashboard</span>
+        </NavLink>
 
-        <li>
-          <Link to="/studentlist">👨‍🎓 Students</Link>
-        </li>
+        <NavLink
+          to="/students"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
+          <FaUserGraduate />
+          <span>Students</span>
+        </NavLink>
 
-        <li>
-          <Link to="/teacherlist">👩‍🏫 Teachers</Link>
-        </li>
+        <NavLink
+          to="/teachers"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
+          <FaChalkboardTeacher />
+          <span>Teachers</span>
+        </NavLink>
 
-        <li>
-          <Link to="/attendancelist">📅 Attendance</Link>
-        </li>
+                <NavLink
+          to="/classes"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
+          <FaSchool />
+          <span>Classes</span>
+        </NavLink>
 
-        <li>
-          <Link to="/feelist">💰 Fees</Link>
-        </li>
+        <NavLink
+          to="/attendance"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
+          <FaClipboardCheck />
+          <span>Attendance</span>
+        </NavLink>
 
-        <li>
-          <Link to="/classes">🏫 Classes</Link>
-        </li>
+        <NavLink
+          to="/fees"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
+          <FaMoneyBillWave />
+          <span>Fees</span>
+        </NavLink>
 
-        <li>
-          <Link to="/noticelist">📢 Notices</Link>
-        </li>
+        <NavLink
+          to="/notices"
+          className={({ isActive }) =>
+            isActive ? "menu-item active" : "menu-item"
+          }
+        >
+          <FaBullhorn />
+          <span>Notices</span>
+        </NavLink>
 
-        <li>
-          <Link to="/adminlogin">🚪 Logout</Link>
-        </li>
+        <NavLink
+          to="/dashboard"
+          className="menu-item"
+        >
+          <FaCog />
+          <span>Settings</span>
+        </NavLink>
 
-      </ul>
+      </nav>
 
-    </div>
+      <div className="sidebar-footer">
+
+        <button
+          className="logout-btn"
+          onClick={logout}
+        >
+          <FaSignOutAlt />
+          <span>Logout</span>
+        </button>
+
+      </div>
+
+    </aside>
   );
 }
 

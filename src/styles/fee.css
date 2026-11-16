@@ -1,103 +1,381 @@
-/* ==========================
-   FEE CSS
-========================== */
+/* ==========================================
+   Fee Management
+========================================== */
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+.fee-page{
+    margin-left:260px;
+    min-height:100vh;
+    padding:30px;
+    background:#f4f7fc;
 }
 
-body{
-  background:#f4f7fc;
-  font-family:Arial, Helvetica, sans-serif;
+/* Header */
+
+.fee-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:25px;
 }
 
-.fee-container{
-  width:95%;
-  margin:30px auto;
-  background:#fff;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 10px 30px rgba(0,0,0,.1);
+.fee-header h2{
+    color:#1e3a8a;
+    font-size:30px;
+    font-weight:700;
 }
 
-.fee-container h2{
-  text-align:center;
-  margin-bottom:20px;
-  color:#2c3e50;
+.add-fee-btn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.add-fee-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* Search */
+
+.search-container{
+    margin-bottom:20px;
+}
+
+.search-container input{
+    width:100%;
+    max-width:420px;
+    padding:12px 15px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+    background:#fff;
+}
+
+.search-container input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* Table */
+
+.fee-table-container{
+    width:100%;
+    overflow-x:auto;
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.fee-table{
+    width:100%;
+    min-width:950px;
+    border-collapse:collapse;
+}
+
+.fee-table thead{
+    background:#2563eb;
+}
+
+.fee-table th{
+    color:#fff;
+    padding:15px;
+    text-align:left;
+    font-size:15px;
+    font-weight:600;
+}
+
+.fee-table td{
+    padding:15px;
+    border-bottom:1px solid #e5e7eb;
+    color:#374151;
+    font-size:15px;
+}
+
+.fee-table tbody tr{
+    transition:.3s;
+}
+
+.fee-table tbody tr:hover{
+    background:#f8fafc;
+}
+
+/* Status Badge */
+
+.status-badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    text-transform:capitalize;
+}
+
+.status-badge.paid{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.status-badge.pending{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+/* Buttons */
+
+.action-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.edit-btn,
+.delete-btn{
+    border:none;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    transition:.3s;
+}
+
+.edit-btn{
+    background:#22c55e;
+}
+
+.edit-btn:hover{
+    background:#16a34a;
+}
+
+.delete-btn{
+    background:#ef4444;
+}
+
+.delete-btn:hover{
+    background:#dc2626;
+}
+
+/* Pagination */
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:25px;
+}
+
+.pagination button{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:15px;
+}
+
+.pagination button:hover:not(:disabled){
+    background:#1d4ed8;
+}
+
+.pagination button:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.pagination span{
+    font-size:15px;
+    font-weight:600;
+    color:#374151;
+}
+
+/* Loading */
+
+.loading{
+    text-align:center;
+    color:#2563eb;
+    font-size:20px;
+    margin-top:40px;
+}
+
+/* No Data */
+
+.no-data{
+    text-align:center;
+    padding:40px;
+    color:#6b7280;
+    font-size:17px;
+    font-weight:500;
+}
+
+/* ==========================================
+   Fee Form
+========================================== */
+
+.fee-form-container{
+    max-width:900px;
+    margin:40px auto;
+    background:#fff;
+    border-radius:18px;
+    padding:35px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.fee-form-container h2{
+    text-align:center;
+    color:#1e3a8a;
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:30px;
 }
 
 .fee-form{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
-  margin-bottom:20px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
 }
 
-.fee-form input,
-.fee-form select{
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:15px;
+.form-group{
+    display:flex;
+    flex-direction:column;
 }
 
-.fee-form input:focus,
-.fee-form select:focus{
-  outline:none;
-  border-color:#007bff;
-  box-shadow:0 0 8px rgba(0,123,255,.3);
+.form-group label{
+    margin-bottom:8px;
+    font-size:15px;
+    font-weight:600;
+    color:#374151;
 }
 
-.fee-btn{
-  background:#28a745;
-  color:#fff;
-  border:none;
-  padding:12px;
-  border-radius:8px;
-  cursor:pointer;
-  transition:.3s;
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:12px 15px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    background:#fff;
+    transition:.3s;
+    box-sizing:border-box;
 }
 
-.fee-btn:hover{
-  background:#218838;
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
 }
 
-.table-responsive{
-  overflow-x:auto;
+.full-width{
+    grid-column:1 / -1;
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
+/* Form Buttons */
+
+.form-buttons{
+    grid-column:1 / -1;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:15px;
 }
 
-th{
-  background:#28a745;
-  color:#fff;
+.save-btn,
+.cancel-btn{
+    border:none;
+    padding:12px 30px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    color:#fff;
+    transition:.3s;
 }
 
-th,td{
-  padding:12px;
-  border:1px solid #ddd;
-  text-align:center;
+.save-btn{
+    background:#2563eb;
 }
 
-tr:nth-child(even){
-  background:#f8f9fa;
+.save-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
 }
 
-tr:hover{
-  background:#eef5ff;
+.cancel-btn{
+    background:#ef4444;
+}
+
+.cancel-btn:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+    .fee-page{
+        margin-left:80px;
+        padding:20px;
+    }
+
 }
 
 @media(max-width:768px){
-  .fee-container{
-    padding:15px;
-  }
 
-  table{
-    font-size:14px;
-  }
+    .fee-page{
+        margin-left:0;
+        padding:15px;
+    }
+
+    .fee-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .fee-header h2{
+        font-size:24px;
+    }
+
+    .fee-table{
+        min-width:900px;
+    }
+
+    .fee-form{
+        grid-template-columns:1fr;
+    }
+
+    .full-width{
+        grid-column:auto;
+    }
+
+    .form-buttons{
+        flex-direction:column;
+    }
+
+    .save-btn,
+    .cancel-btn{
+        width:100%;
+    }
+
+    .action-buttons{
+        flex-direction:column;
+    }
+
+    .edit-btn,
+    .delete-btn{
+        width:100%;
+    }
+
 }

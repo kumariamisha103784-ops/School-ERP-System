@@ -1,14 +1,68 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import API from "./api/api";
 import "./styles/attendance.css";
 
 function AttendanceForm() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [students, setStudents] = useState([]);
+
   const [attendance, setAttendance] = useState({
-    studentName: "",
-    class: "",
+    student: "",
     date: "",
     status: "Present",
   });
+
+  useEffect(() => {
+    fetchStudents();
+
+    if (id) {
+      fetchAttendance();
+    }
+  }, [id]);
+
+  const fetchStudents = async () => {
+    try {
+      const res = await API.get("/students");
+
+      if (res.data.success) {
+        setStudents(res.data.data || []);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Unable to load students");
+    }
+  };
+
+  const fetchAttendance = async () => {
+    try {
+      const res = await API.get("/attendance");
+
+      if (res.data.success) {
+        const selected = res.data.data.find(
+          (item) => item._id === id
+        );
+
+        if (selected) {
+          setAttendance({
+            student:
+              typeof selected.student === "object"
+                ? selected.student._id
+                : selected.student || "",
+            date: selected.date
+              ? selected.date.substring(0, 10)
+              : "",
+            status: selected.status || "Present",
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Unable to load attendance");
+    }
+  };
 
   const handleChange = (e) => {
     setAttendance({
@@ -21,71 +75,122 @@ function AttendanceForm() {
     e.preventDefault();
 
     try {
-      await axios.post(
-        "http://localhost:5000/api/attendance",
-        attendance
-      );
+      if (id) {
+        await API.put(`/attendance/${id}`, attendance);
 
-      alert("Attendance Added Successfully");
+        alert("Attendance Updated Successfully");
+      } else {
+        await API.post("/attendance", attendance);
 
-      setAttendance({
-        studentName: "",
-        class: "",
-        date: "",
-        status: "Present",
-      });
+        alert("Attendance Added Successfully");
+      }
+
+      navigate("/attendance");
     } catch (error) {
-      console.log(error);
-      alert("Error Adding Attendance");
+      console.log(error.response?.data || error);
+
+      alert(
+        error.response?.data?.message ||
+          "Something went wrong"
+      );
     }
   };
 
   return (
-    <div className="attendance-container">
-      <h2>Add Attendance</h2>
+    <div className="attendance-form-container">
 
-      <form className="attendance-form" onSubmit={handleSubmit}>
+      <h2>
+        {id ? "Update Attendance" : "Add Attendance"}
+      </h2>
 
-        <input
-          type="text"
-          name="studentName"
-          placeholder="Student Name"
-          value={attendance.studentName}
-          onChange={handleChange}
-          required
-        />
+      <form
+        className="attendance-form"
+        onSubmit={handleSubmit}
+      >
 
-        <input
-          type="text"
-          name="class"
-          placeholder="Class"
-          value={attendance.class}
-          onChange={handleChange}
-          required
-        />
+        <div className="form-group">
+          <label>Select Student</label>
 
-        <input
-          type="date"
-          name="date"
-          value={attendance.date}
-          onChange={handleChange}
-          required
-        />
+          <select
+            name="student"
+            value={attendance.student}
+            onChange={handleChange}
+            required
+          >
+            <option value="">
+              Select Student
+            </option>
 
-        <select
-          name="status"
-          value={attendance.status}
-          onChange={handleChange}
-        >
-          <option value="Present">Present</option>
-          <option value="Absent">Absent</option>
-        </select>
+            {students.map((student) => (
+              <option
+                key={student._id}
+                value={student._id}
+              >
+                {student.name} ({student.rollNo})
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <button className="attendance-btn" type="submit">
-          Add Attendance
-        </button>
+        <div className="form-group">
+          <label>Date</label>
+
+          <input
+            type="date"
+            name="date"
+            value={attendance.date}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group full-width">
+          <label>Status</label>
+
+          <select
+            name="status"
+            value={attendance.status}
+            onChange={handleChange}
+          >
+            <option value="Present">
+              Present
+            </option>
+
+            <option value="Absent">
+              Absent
+            </option>
+
+            <option value="Leave">
+              Leave
+            </option>
+          </select>
+        </div>
+
+        <div className="form-buttons">
+
+          <button
+            type="submit"
+            className="save-btn"
+          >
+            {id
+              ? "Update Attendance"
+              : "Add Attendance"}
+          </button>
+
+          <button
+            type="button"
+            className="cancel-btn"
+            onClick={() =>
+              navigate("/attendance")
+            }
+          >
+            Cancel
+          </button>
+
+        </div>
 
       </form>
+
     </div>
   );
 }

@@ -1,103 +1,331 @@
-/* ==========================
-   ATTENDANCE CSS
-========================== */
+/* ===============================
+   Attendance Page
+=============================== */
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+.attendance-page{
+    margin-left:260px;
+    padding:30px;
+    min-height:100vh;
+    background:#f4f7fc;
 }
 
-body{
-  background:#f4f7fc;
-  font-family:Arial, Helvetica, sans-serif;
+/* ===============================
+   Header
+=============================== */
+
+.attendance-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+    gap:15px;
 }
 
-.attendance-container{
-  width:95%;
-  margin:30px auto;
-  background:#fff;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 10px 30px rgba(0,0,0,.1);
+.attendance-header h2{
+    font-size:28px;
+    color:#1e3a8a;
+    font-weight:700;
 }
 
-.attendance-container h2{
-  text-align:center;
-  margin-bottom:20px;
-  color:#2c3e50;
+.add-attendance-btn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
 }
 
-.attendance-form{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
-  margin-bottom:20px;
+.add-attendance-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
 }
 
-.attendance-form input,
-.attendance-form select{
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:15px;
+/* ===============================
+   Search
+=============================== */
+
+.search-container{
+    margin-bottom:20px;
 }
 
-.attendance-form input:focus,
-.attendance-form select:focus{
-  outline:none;
-  border-color:#007bff;
-  box-shadow:0 0 8px rgba(0,123,255,.3);
+.search-container input{
+    width:100%;
+    max-width:420px;
+    padding:12px 15px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
 }
 
-.attendance-btn{
-  background:#007bff;
-  color:#fff;
-  border:none;
-  padding:12px;
-  border-radius:8px;
-  cursor:pointer;
-  transition:.3s;
+.search-container input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
 }
 
-.attendance-btn:hover{
-  background:#0056b3;
+/* ===============================
+   Table
+=============================== */
+
+.attendance-table-container{
+    width:100%;
+    overflow-x:auto;
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
 }
 
-.table-responsive{
-  overflow-x:auto;
+.attendance-table{
+    width:100%;
+    min-width:850px;
+    border-collapse:collapse;
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
+.attendance-table thead{
+    background:#2563eb;
 }
 
-th{
-  background:#007bff;
-  color:#fff;
+.attendance-table th{
+    color:#fff;
+    padding:15px;
+    text-align:left;
+    font-size:15px;
 }
 
-th,td{
-  padding:12px;
-  border:1px solid #ddd;
-  text-align:center;
+.attendance-table td{
+    padding:15px;
+    border-bottom:1px solid #e5e7eb;
+    color:#374151;
 }
 
-tr:nth-child(even){
-  background:#f8f9fa;
+.attendance-table tbody tr:hover{
+    background:#f8fafc;
 }
 
-tr:hover{
-  background:#eef5ff;
+/* ===============================
+   Status Badge
+=============================== */
+
+.status-badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    text-transform:capitalize;
+}
+
+.status-badge.present{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.status-badge.absent{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.status-badge.leave{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+/* ===============================
+   Action Buttons
+=============================== */
+
+.action-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.edit-btn,
+.delete-btn{
+    border:none;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:14px;
+}
+
+.edit-btn{
+    background:#22c55e;
+}
+
+.edit-btn:hover{
+    background:#16a34a;
+}
+
+.delete-btn{
+    background:#ef4444;
+}
+
+.delete-btn:hover{
+    background:#dc2626;
+}
+
+/* ===============================
+   Empty Data
+=============================== */
+
+.no-data{
+    text-align:center;
+    padding:40px;
+    color:#6b7280;
+    font-size:17px;
+}
+
+/* ===============================
+   Loading
+=============================== */
+
+.loading{
+    text-align:center;
+    color:#2563eb;
+    font-size:20px;
+    margin-top:40px;
+}
+
+/* ===============================
+   Pagination
+=============================== */
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:25px;
+}
+
+.pagination button{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.pagination button:hover:not(:disabled){
+    background:#1d4ed8;
+}
+
+.pagination button:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.pagination span{
+    font-weight:600;
+    color:#374151;
+}
+
+/* ===============================
+   Form
+=============================== */
+
+.attendance-form-container{
+    max-width:700px;
+    margin:40px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.attendance-form-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#1e3a8a;
+}
+
+.attendance-form-container form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.attendance-form-container select,
+.attendance-form-container input{
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+}
+
+.attendance-form-container select:focus,
+.attendance-form-container input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+.submit-btn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:13px;
+    border-radius:10px;
+    font-size:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.submit-btn:hover{
+    background:#1d4ed8;
+}
+
+/* ===============================
+   Responsive
+=============================== */
+
+@media(max-width:992px){
+
+    .attendance-page{
+        margin-left:80px;
+        padding:20px;
+    }
+
 }
 
 @media(max-width:768px){
-  .attendance-container{
-    padding:15px;
-  }
 
-  table{
-    font-size:14px;
-  }
+    .attendance-page{
+        margin-left:0;
+        padding:15px;
+    }
+
+    .attendance-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .attendance-header h2{
+        font-size:24px;
+    }
+
+    .attendance-table{
+        min-width:700px;
+    }
+
+    .action-buttons{
+        flex-direction:column;
+    }
+
+    .edit-btn,
+    .delete-btn{
+        width:100%;
+    }
+
 }
+

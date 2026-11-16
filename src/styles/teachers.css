@@ -1,0 +1,260 @@
+/* ==========================================
+   Teachers Page
+========================================== */
+
+.teachers-page{
+    margin-left:260px;
+    min-height:100vh;
+    padding:30px;
+    background:#f4f7fc;
+}
+
+/* Header */
+
+.teachers-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.teachers-header h2{
+    color:#1e3a8a;
+    font-size:30px;
+    font-weight:700;
+}
+
+.add-teacher-btn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.add-teacher-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+/* Search */
+
+.search-container{
+    margin-bottom:20px;
+}
+
+.search-container input{
+    width:100%;
+    max-width:420px;
+    padding:12px 15px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+.search-container input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* Table */
+
+.teachers-table-container{
+    width:100%;
+    overflow-x:auto;
+    background:#fff;
+    border-radius:15px;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.teachers-table{
+    width:100%;
+    min-width:950px;
+    border-collapse:collapse;
+}
+
+.teachers-table thead{
+    background:#2563eb;
+}
+
+.teachers-table th{
+    color:#fff;
+    padding:15px;
+    text-align:left;
+    font-size:15px;
+    font-weight:600;
+}
+
+.teachers-table td{
+    padding:15px;
+    border-bottom:1px solid #e5e7eb;
+    color:#374151;
+    font-size:15px;
+}
+
+.teachers-table tbody tr{
+    transition:.3s;
+}
+
+.teachers-table tbody tr:hover{
+    background:#f8fafc;
+}
+
+/* Photo */
+
+.teacher-photo{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #2563eb;
+}
+
+/* Action Buttons */
+
+.action-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn{
+    border:none;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    transition:.3s;
+}
+
+.view-btn{
+    background:#0ea5e9;
+}
+
+.view-btn:hover{
+    background:#0284c7;
+}
+
+.edit-btn{
+    background:#22c55e;
+}
+
+.edit-btn:hover{
+    background:#16a34a;
+}
+
+.delete-btn{
+    background:#ef4444;
+}
+
+.delete-btn:hover{
+    background:#dc2626;
+}
+
+/* Empty Data */
+
+.no-data{
+    text-align:center;
+    padding:35px;
+    color:#6b7280;
+    font-size:17px;
+    font-weight:500;
+}
+
+/* Pagination */
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:25px;
+}
+
+.pagination button{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:15px;
+}
+
+.pagination button:hover:not(:disabled){
+    background:#1d4ed8;
+}
+
+.pagination button:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+}
+
+.pagination span{
+    font-size:15px;
+    font-weight:600;
+    color:#374151;
+}
+
+/* Loading */
+
+.loading{
+    text-align:center;
+    color:#2563eb;
+    font-size:20px;
+    margin-top:40px;
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+    .teachers-page{
+        margin-left:80px;
+        padding:20px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .teachers-page{
+        margin-left:0;
+        padding:15px;
+    }
+
+    .teachers-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .teachers-header h2{
+        font-size:24px;
+    }
+
+    .teachers-table{
+        min-width:900px;
+    }
+
+    .action-buttons{
+        flex-direction:column;
+    }
+
+    .view-btn,
+    .edit-btn,
+    .delete-btn{
+        width:100%;
+    }
+
+}

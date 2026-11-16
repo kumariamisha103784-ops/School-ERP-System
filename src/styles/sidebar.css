@@ -1,49 +1,187 @@
+/* ==========================================
+   PREMIUM SIDEBAR
+========================================== */
+
 .sidebar{
-    width:260px;
-    height:100vh;
-    background:#1e293b;
-    color:white;
-    position:fixed;
-    left:0;
-    top:0;
-    overflow-y:auto;
-    transition:0.3s;
+    position: fixed;
+    top: 0;
+    left: -270px;
+    width: 270px;
+    height: 100vh;
+
+    background: linear-gradient(180deg,#081221,#101b32,#132442);
+
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+
+    border-right: 1px solid rgba(255,255,255,.08);
+
+    box-shadow: 8px 0 30px rgba(0,0,0,.45);
+
+    overflow-y: auto;
+
+    z-index: 1000;
+
+    transition: left .35s ease;
 }
 
-.logo{
-    text-align:center;
-    padding:25px 15px;
-    border-bottom:1px solid rgba(255,255,255,.15);
+.sidebar.active{
+    left: 0;
 }
 
-.logo h2{
-    margin:0;
+/* =========================
+   LOGO
+========================= */
+
+.sidebar-top{
+    padding: 28px 22px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.logo p{
-    margin-top:8px;
-    color:#cbd5e1;
+.logo-box{
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.sidebar ul{
-    list-style:none;
-    padding:20px 0;
-    margin:0;
+.logo-icon{
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 16px;
+
+    background: linear-gradient(135deg,#2563eb,#06b6d4);
+
+    font-size: 28px;
 }
 
-.sidebar ul li{
-    margin:5px 0;
+.logo-box h2{
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
 }
 
-.sidebar ul li a{
-    display:block;
-    color:white;
-    text-decoration:none;
-    padding:15px 25px;
+.logo-box p{
+    color: #94a3b8;
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.sidebar-menu{
+    flex: 1;
+    padding: 20px 14px;
+}
+
+.menu-item{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    color: #cbd5e1;
+
+    text-decoration: none;
+
+    padding: 15px 18px;
+
+    margin-bottom: 8px;
+
+    border-radius: 14px;
+
+    transition: .3s;
+}
+
+.menu-item:hover{
+    background: rgba(255,255,255,.08);
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.menu-item.active{
+    background: linear-gradient(90deg,#2563eb,#06b6d4);
+    color: #fff;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.sidebar-footer{
+    padding:20px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.logout-btn{
+    width:100%;
+    border:none;
+    outline:none;
+    cursor:pointer;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+
+    color:#fff;
+
+    font-size:15px;
+    font-weight:600;
+
     transition:.3s;
 }
 
-.sidebar ul li a:hover{
-    background:#2563eb;
-    padding-left:35px;
+.logout-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(239,68,68,.35);
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+.sidebar::-webkit-scrollbar{
+    width:6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background:#475569;
+    border-radius:10px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+    .sidebar{
+        width:270px;
+    }
+
+}
+
+.sidebar{
+    position:fixed;
+    left:-270px;
+    width:270px;
+    transition:left .35s ease;
+}
+
+.sidebar.active{
+    left:0;
 }

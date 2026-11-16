@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import API from "./api/api";
+import "./styles/teachers.css";
 
 function Teachers() {
   const [teachers, setTeachers] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [teacher, setTeacher] = useState({
-    name: "",
-    subject: "",
-    assignedClass: "",
-    mobile: "",
-  });
+  const teachersPerPage = 10;
 
   useEffect(() => {
     fetchTeachers();
@@ -18,127 +17,190 @@ function Teachers() {
 
   const fetchTeachers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/teachers");
-      setTeachers(res.data.data);
+      const res = await API.get("/teachers");
+
+      if (res.data.success) {
+        setTeachers(res.data.data || []);
+      }
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChange = (e) => {
-    setTeacher({
-      ...teacher,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await axios.post("http://localhost:5000/api/teachers", teacher);
-
-      alert("Teacher Added Successfully");
-
-      setTeacher({
-        name: "",
-        subject: "",
-        assignedClass: "",
-        mobile: "",
-      });
-
-      fetchTeachers();
-    } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert("Failed to load teachers");
+    } finally {
+      setLoading(false);
     }
   };
 
   const deleteTeacher = async (id) => {
-    if (window.confirm("Delete this Teacher?")) {
-      try {
-        await axios.delete(`http://localhost:5000/api/teachers/${id}`);
-        fetchTeachers();
-      } catch (error) {
-        console.log(error);
-      }
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this teacher?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/teachers/${id}`);
+      alert("Teacher Deleted Successfully");
+      fetchTeachers();
+    } catch (error) {
+      console.error(error);
+      alert("Delete Failed");
+    }
+  };
+
+  const filteredTeachers = teachers.filter((teacher) => {
+    return (
+      (teacher.name || "")
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      (teacher.subject || "")
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      (teacher.assignedClass || "")
+        .toLowerCase()
+        .includes(search.toLowerCase())
+    );
+  });
+
+  const lastIndex = currentPage * teachersPerPage;
+  const firstIndex = lastIndex - teachersPerPage;
+
+  const currentTeachers = filteredTeachers.slice(
+    firstIndex,
+    lastIndex
+  );
+
+  const totalPages = Math.ceil(
+    filteredTeachers.length / teachersPerPage
+  );
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
   return (
-    <div className="teachers">
-      <h1>Teacher Management</h1>
+    <div className="teachers-page">
 
-      <h3>Add / Edit / View Teacher Profiles</h3>
+      <div className="teachers-header">
+        <h2>Teacher Management</h2>
 
-      <form className="teacher-form" onSubmit={handleSubmit}>
+        <Link to="/teacherform">
+          <button className="add-teacher-btn">
+            + Add Teacher
+          </button>
+        </Link>
+      </div>
+
+      <div className="search-container">
         <input
           type="text"
-          name="name"
-          placeholder="Enter Teacher Name"
-          value={teacher.name}
-          onChange={handleChange}
+          placeholder="Search by Name, Subject or Class..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1);
+          }}
         />
+      </div>
+            {loading ? (
+        <h2 className="loading">
+          Loading Teachers...
+        </h2>
+      ) : (
+        <div className="teachers-table-container">
+          <table className="teachers-table">
 
-        <input
-          type="text"
-          name="subject"
-          placeholder="Enter Subject"
-          value={teacher.subject}
-          onChange={handleChange}
-        />
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Assigned Class</th>
+                <th>Mobile</th>
+                <th>Action</th>
+              </tr>
+            </thead>
 
-        <input
-          type="text"
-          name="assignedClass"
-          placeholder="Enter Assigned Class"
-          value={teacher.assignedClass}
-          onChange={handleChange}
-        />
+            <tbody>
+              {currentTeachers.length > 0 ? (
+                currentTeachers.map((teacher) => (
+                  <tr key={teacher._id}>
+                    <td>{teacher.name}</td>
 
-        <input
-          type="text"
-          name="mobile"
-          placeholder="Enter Phone Number"
-          value={teacher.mobile}
-          onChange={handleChange}
-        />
+                    <td>{teacher.subject}</td>
 
-        <button type="submit">
-          Add Teacher
-        </button>
-      </form>
+                    <td>{teacher.assignedClass}</td>
 
-      <br />
+                    <td>{teacher.mobile}</td>
 
-      <table border="1" cellPadding="10">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Subject</th>
-            <th>Assigned Class</th>
-            <th>Phone</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+                    <td>
+                      <div className="action-buttons">
 
-        <tbody>
-          {teachers.map((t) => (
-            <tr key={t._id}>
-              <td>{t.name}</td>
-              <td>{t.subject}</td>
-              <td>{t.assignedClass}</td>
-              <td>{t.mobile}</td>
-              <td>
-                <button>Edit</button>
+                        <Link to={`/teacheredit/${teacher._id}`}>
+                          <button className="edit-btn">
+                            Edit
+                          </button>
+                        </Link>
 
-                <button onClick={() => deleteTeacher(t._id)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                        <button
+                          className="delete-btn"
+                          onClick={() =>
+                            deleteTeacher(teacher._id)
+                          }
+                        >
+                          Delete
+                        </button>
+
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="5"
+                    className="no-data"
+                  >
+                    No Teachers Found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+
+          </table>
+        </div>
+      )}
+
+      {!loading && totalPages > 1 && (
+        <div className="pagination">
+
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+
+          <button
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+
+        </div>
+      )}
+
     </div>
   );
 }
