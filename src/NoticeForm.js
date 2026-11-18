@@ -13,11 +13,15 @@ function NoticeForm() {
     noticeDate: "",
   });
 
-  useEffect(() => {
+ useEffect(() => {
+  const fetchData = async () => {
     if (id) {
-      loadNotice();
+      await loadNotice();
     }
-  }, [id]);
+  };
+
+  fetchData();
+}, [id]);
 
   const loadNotice = async () => {
     try {

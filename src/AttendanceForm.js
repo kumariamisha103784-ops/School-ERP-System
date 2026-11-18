@@ -15,13 +15,17 @@ function AttendanceForm() {
     status: "Present",
   });
 
-  useEffect(() => {
-    fetchStudents();
+ useEffect(() => {
+  const loadData = async () => {
+    await fetchStudents();
 
     if (id) {
-      fetchAttendance();
+      await fetchAttendance();
     }
-  }, [id]);
+  };
+
+  loadData();
+}, [id]);
 
   const fetchStudents = async () => {
     try {

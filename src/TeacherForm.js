@@ -17,11 +17,15 @@ function TeacherForm() {
 
   const [photo, setPhoto] = useState(null);
 
-  useEffect(() => {
+ useEffect(() => {
+  const loadData = async () => {
     if (id) {
-      fetchTeacher();
+      await fetchTeacher();
     }
-  }, [id]);
+  };
+
+  loadData();
+}, [id]);
 
   const fetchTeacher = async () => {
     try {

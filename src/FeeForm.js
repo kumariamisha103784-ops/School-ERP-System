@@ -17,13 +17,17 @@ function FeeForm() {
     status: "Pending",
   });
 
-  useEffect(() => {
-    loadStudents();
+useEffect(() => {
+  const loadData = async () => {
+    await loadStudents();
 
     if (id) {
-      loadFee();
+      await loadFee();
     }
-  }, [id]);
+  };
+
+  loadData();
+}, [id]);
 
   const loadStudents = async () => {
     try {
