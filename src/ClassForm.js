@@ -14,11 +14,16 @@ function ClassForm() {
     roomNo: "",
   });
 
-  useEffect(() => {
+ useEffect(() => {
+  const init = async () => {
     if (id) {
-      loadClass();
+      await loadClass();
     }
-  }, [id]);
+  };
+
+  init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [id]);
 
   const loadClass = async () => {
     try {

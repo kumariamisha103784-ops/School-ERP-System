@@ -15,8 +15,8 @@ function AttendanceForm() {
     status: "Present",
   });
 
- useEffect(() => {
-  const loadData = async () => {
+  useEffect(() => {
+  const init = async () => {
     await fetchStudents();
 
     if (id) {
@@ -24,7 +24,8 @@ function AttendanceForm() {
     }
   };
 
-  loadData();
+  init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [id]);
 
   const fetchStudents = async () => {
