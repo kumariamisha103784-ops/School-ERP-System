@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaLock,
   FaEnvelope,
@@ -143,8 +143,11 @@ function AdminLogin() {
 
             </label>
 
-            <span className="forgot-password">
-              Forgot Password?
+            <span
+               className="forgot-password"
+               onClick={() => navigate("/forgot-password")}
+            >
+               Forgot Password?
             </span>
 
           </div>
@@ -154,8 +157,17 @@ function AdminLogin() {
             className="login-btn"
             disabled={loading}
           >
+
+
             {loading ? "Signing In..." : "LOGIN"}
           </button>
+
+          <div className="register-link">
+  <p>
+    Don't have an account?{" "}
+    <Link to="/register">Create Account</Link>
+  </p>
+</div>
 
         </form>
 

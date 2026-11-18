@@ -22,12 +22,16 @@ import ClassForm from "./ClassForm";
 import Notices from "./Notices";
 import NoticeForm from "./NoticeForm";
 
+import Register from "./Register";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AdminLogin />} />
         <Route path="/adminlogin" element={<AdminLogin />} />
+
+        <Route path="/register" element={<Register />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
 
