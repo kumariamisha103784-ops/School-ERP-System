@@ -18,13 +18,14 @@ function TeacherForm() {
   const [photo, setPhoto] = useState(null);
 
  useEffect(() => {
-  const loadData = async () => {
+  const init = async () => {
     if (id) {
       await fetchTeacher();
     }
   };
 
-  loadData();
+  init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [id]);
 
   const fetchTeacher = async () => {

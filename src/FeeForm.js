@@ -18,7 +18,7 @@ function FeeForm() {
   });
 
 useEffect(() => {
-  const loadData = async () => {
+  const init = async () => {
     await loadStudents();
 
     if (id) {
@@ -26,7 +26,8 @@ useEffect(() => {
     }
   };
 
-  loadData();
+  init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [id]);
 
   const loadStudents = async () => {

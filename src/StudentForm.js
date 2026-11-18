@@ -17,14 +17,15 @@ function StudentForm() {
 
   const [photo, setPhoto] = useState(null);
 
-useEffect(() => {
-  const loadData = async () => {
+  useEffect(() => {
+  const init = async () => {
     if (id) {
       await fetchStudent();
     }
   };
 
-  loadData();
+  init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [id]);
 
   const fetchStudent = async () => {

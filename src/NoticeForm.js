@@ -13,16 +13,17 @@ function NoticeForm() {
     noticeDate: "",
   });
 
- useEffect(() => {
-  const fetchData = async () => {
+useEffect(() => {
+  const init = async () => {
     if (id) {
       await loadNotice();
     }
   };
 
-  fetchData();
+  init();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [id]);
-
+  
   const loadNotice = async () => {
     try {
       const res = await axios.get(
