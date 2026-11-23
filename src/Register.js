@@ -38,12 +38,19 @@ function Register() {
         alert("Account Created Successfully");
         navigate("/");
       }
+ 
     } catch (error) {
-      alert(error.response?.data?.message || "Registration Failed");
-    }
+  console.log("FULL ERROR:", error);
+  console.log("RESPONSE:", error.response);
+  console.log("DATA:", error.response?.data);
 
-    setLoading(false);
-  };
+  alert(error.response?.data?.message || error.message);
+} finally {
+  setLoading(false);
+}
+
+};   // ✅ handleRegister यहीं बंद होगा
+
 
   return (
     <div className="register-container">
